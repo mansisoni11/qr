@@ -119,10 +119,6 @@
     openedWindow = window.open(result, '_blank');
     showCloseButton();
 
-    // Automatically close the window after 30 seconds
-    setTimeout(function () {
-      closeAndRedirect();
-    }, 5000);
   }
 
   function error(err) {
@@ -137,19 +133,8 @@
     }
   }
 
-  // Function to close the opened window and redirect to index.html
-  function closeAndRedirect() {
-    if (openedWindow && !openedWindow.closed) {
-      openedWindow.close();
-    }
-    // Redirect to index.html
-    window.location.href = 'index.html';
-  }
+  
 
-  // Function to close the opened window manually
-  function closeWindow() {
-    closeAndRedirect();
-  }
 </script>
 
 
