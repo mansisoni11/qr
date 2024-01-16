@@ -99,6 +99,7 @@
   <div id="result"></div>
   <div id="closeButton" onclick="closeWindow()">Close</div>
 </main>
+
 <script>
   const scanner = new Html5QrcodeScanner('reader', {
     qrbox: {
@@ -113,14 +114,16 @@
   scanner.render(success, error);
 
   function success(result) {
-    
-    openedWindow = window.open(result, '_blank');
-    showCloseButton();
+    // Check if the window is already open
+    if (!openedWindow || openedWindow.closed) {
+      openedWindow = window.open(result, '_blank');
+      showCloseButton();
 
-    // Automatically close the window after 30 seconds
-    setTimeout(function () {
-      closeAndRedirect();
-    }, 5000);
+      // Automatically close the window after 30 seconds
+      setTimeout(function () {
+        closeAndRedirect();
+      }, 5000);
+    }
   }
 
   function error(err) {
@@ -149,7 +152,6 @@
     closeAndRedirect();
   }
 </script>
-
 
 </body>
 </html>
