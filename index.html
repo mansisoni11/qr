@@ -253,11 +253,8 @@
 <main>
   <div id="reader"></div>
   <div id="result"></div>
-<!-- ... Your existing HTML and styles ... -->
 
 <div id="closeButton" onclick="closeWindow()" ontouchend="closeWindow()">Close</div>
-
-<!-- ... Your existing script ... -->
 
 </main>
 <script>
@@ -309,7 +306,7 @@
       openedWindow.close();
     }
     isWindowOpen = false;
-    window.location.href = 'https://master--tangerine-zuccutto-0b74f7.netlify.app';
+    window.location.replace('https://master--tangerine-zuccutto-0b74f7.netlify.app');
   }
 
   // Function to close the opened window manually
