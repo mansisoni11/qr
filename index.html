@@ -276,7 +276,7 @@
     if (!isWindowOpen) {
       isWindowOpen = true;
 
-      if (openedWindow || !openedWindow.closed) {
+      if (openedWindow && !openedWindow.closed) {
         openedWindow.close();
       }
 
@@ -284,7 +284,7 @@
       showCloseButton();
 
       setTimeout(function () {
-        openedWindow.close();
+        
         closeAndRedirect();
        
       }, 5000);
