@@ -112,6 +112,10 @@
 
   function success(result) {
     
+    if (openedWindow && !openedWindow.closed) {
+      openedWindow.close();
+    }
+    
     openedWindow = window.open(result, '_blank');
     showCloseButton();
 
