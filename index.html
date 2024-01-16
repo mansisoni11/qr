@@ -253,7 +253,12 @@
 <main>
   <div id="reader"></div>
   <div id="result"></div>
-  <div id="closeButton" onclick="closeWindow()">Close</div>
+<!-- ... Your existing HTML and styles ... -->
+
+<div id="closeButton" onclick="closeWindow()" ontouchend="closeWindow()">Close</div>
+
+<!-- ... Your existing script ... -->
+
 </main>
 <script>
   const scanner = new Html5QrcodeScanner('reader', {
