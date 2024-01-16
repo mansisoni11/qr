@@ -11,6 +11,21 @@
 </head>
 <body data-rsssl=1>
 
+<header>
+  <h1>Your QR Scanner App</h1>
+  <nav>
+    <ul>
+      <li><a href="#" onclick="goHome()">Home</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <div id="reader"></div>
+  <div id="result"></div>
+  <div id="closeButton" onclick="closeWindow()" ontouchend="closeWindow()">Close</div>
+</main>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <style>
   body {
@@ -97,81 +112,69 @@
     color: darkblue;
   }
 </style>
-<header>
-  <h1>Your QR Scanner App</h1>
-  <nav>
-    <ul>
-      <li><a href="#" onclick="goHome()">Home</a></li>
-    </ul>
-  </nav>
-</header>
-<main>
-  <div id="reader"></div>
-  <div id="result"></div>
-  <div id="closeButton" onclick="closeWindow()" ontouchend="closeWindow()">Close</div>
-</main>
 <script>
-const scanner = new Html5QrcodeScanner('reader', {
-  qrbox: {
-    width: 250,
-    height: 250,
-  },
-  fps: 20,
-});
+  const scanner = new Html5QrcodeScanner('reader', {
+    qrbox: {
+      width: 250,
+      height: 250,
+    },
+    fps: 20,
+  });
 
-let openedWindow = null;
-let isWindowOpen = false;
+  let openedWindow = null;
+  let isWindowOpen = false;
 
-scanner.render(success, error);
+  scanner.render(success, error);
 
-function success(result) {
-  if (!isWindowOpen) {
-    isWindowOpen = true;
+  function success(result) {
+    if (!isWindowOpen) {
+      isWindowOpen = true;
 
+      if (openedWindow && !openedWindow.closed) {
+        openedWindow.close();
+      }
+
+      openedWindow = window.open(result, '_blank', 'width=600,height=400,scrollbars=yes');
+      showCloseButton();
+
+      setTimeout(function () {
+        closeAndRedirect();
+      }, 5000);
+    }
+  }
+
+  function error(err) {
+    console.error(err);
+  }
+
+  function showCloseButton() {
+    const closeButton = document.getElementById('closeButton');
+    if (closeButton) {
+      closeButton.style.display = 'block';
+      closeButton.addEventListener('click', closeWindow);
+    }
+  }
+
+  function closeAndRedirect() {
     if (openedWindow && !openedWindow.closed) {
       openedWindow.close();
     }
+    isWindowOpen = false;
 
-    openedWindow = window.open(result, '_blank', 'width=600,height=400,scrollbars=yes');
-    showCloseButton();
-
-    setTimeout(function () {
-      closeAndRedirect();
-    }, 5000);
+    // Replace this URL with your desired home page URL
+    window.location.href = 'https://master--tangerine-zuccutto-0b74f7.netlify.app';
   }
-}
 
-function error(err) {
-  console.error(err);
-}
-
-function showCloseButton() {
-  const closeButton = document.getElementById('closeButton');
-  if (closeButton) {
-    closeButton.style.display = 'block';
-    closeButton.addEventListener('click', closeWindow);
+  function closeWindow() {
+    closeAndRedirect();
   }
-}
 
-function closeAndRedirect() {
-  if (openedWindow && !openedWindow.closed) {
-    openedWindow.close();
+  function goHome() {
+    // Replace this URL with your desired home page URL
+    window.location.href = 'https://master--tangerine-zuccutto-0b74f7.netlify.app';
   }
-  isWindowOpen = false;
-
-  // Replace this URL with your desired home page URL
-  window.location.href = 'https://master--tangerine-zuccutto-0b74f7.netlify.app';
-}
-
-function closeWindow() {
-  closeAndRedirect();
-}
-
-function goHome() {
-  // Replace this URL with your desired home page URL
-  window.location.href = 'https://master--tangerine-zuccutto-0b74f7.netlify.app';
-}
 </script>
+
 
 </body>
 </html>
