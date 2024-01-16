@@ -111,24 +111,22 @@
     qrbox: {
       width: 250,
       height: 250,
-      
     },
     fps: 20,
   });
-
+  
   let openedWindow;
   let scanningInProgress = false;
-
+  
   scanner.render(success, error);
-
+  
   function success(result) {
-    
     if (!scanningInProgress) {
       scanningInProgress = true;
-
+  
       openedWindow = window.open(result, '_blank');
       showCloseButton();
-
+  
       // Automatically close the window after 30 seconds
       setTimeout(function () {
         closeAndRedirect();
@@ -136,11 +134,11 @@
       }, 5000); // 5 seconds
     }
   }
-
+  
   function error(err) {
     console.error(err);
   }
-
+  
   // Function to show the close button
   function showCloseButton() {
     const closeButton = document.getElementById('closeButton');
@@ -148,20 +146,26 @@
       closeButton.style.display = 'block';
     }
   }
-
+  
   // Function to close the opened window and redirect to index.html
   function closeAndRedirect() {
     if (openedWindow && !openedWindow.closed) {
       openedWindow.close();
+      setTimeout(function () {
+        // Redirect to index.html after closing the window
+        window.location.href = 'index.html';
+      }, 1000); // Adjust the time delay as needed
+    } else {
+      // Redirect to index.html if the window is already closed
+      window.location.href = 'index.html';
     }
-    // Redirect to index.html
-    window.location.href = 'index.html';
   }
-
+  
   // Function to close the opened window manually
   function closeWindow() {
     closeAndRedirect();
   }
+  
 </script>
 
 </body>
