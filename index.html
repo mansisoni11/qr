@@ -275,47 +275,46 @@
   function success(result) {
     if (!isWindowOpen) {
       isWindowOpen = true;
-  
+
       if (openedWindow && !openedWindow.closed) {
         openedWindow.close();
       }
-  
-      // Open a new window with some options
-      openedWindow = window.open(result, '_blank', 'width=600,height=400,scrollbars=yes');
+
+      openedWindow = window.open(result, '_blank');
       showCloseButton();
-  
+
       setTimeout(function () {
+        
         closeAndRedirect();
+       
       }, 5000);
     }
   }
-  
+
   function error(err) {
     console.error(err);
   }
-  
+
   function showCloseButton() {
     const closeButton = document.getElementById('closeButton');
     if (closeButton) {
       closeButton.style.display = 'block';
-      closeButton.addEventListener('click', closeWindow);
     }
   }
-  
+
   function closeAndRedirect() {
     if (openedWindow && !openedWindow.closed) {
       openedWindow.close();
     }
     isWindowOpen = false;
-  
+
     // Replace this URL with your desired home page URL
-    
+    window.location.href = 'https://master--tangerine-zuccutto-0b74f7.netlify.app';
   }
-  
+
   function closeWindow() {
     closeAndRedirect();
   }
-  
 </script>
 </body>
 </html>
