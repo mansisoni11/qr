@@ -286,6 +286,9 @@
       setTimeout(function () {
         openedWindow.close();
         closeAndRedirect();
+        if (openedWindow && !openedWindow.closed) {
+          openedWindow.close();
+        }
       }, 5000);
     }
   }
