@@ -1,4 +1,160 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body data-rsssl=1>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif; /* Set a default font family */
+    background: linear-gradient(308deg, #1b1d1c, #5f6461, #95939e, #d9d7e3);
+    background-size: 800% 800%;
+
+    -webkit-animation: AnimationName 23s ease infinite;
+    -moz-animation: AnimationName 23s ease infinite;
+    animation: AnimationName 23s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:15% 0%}
+    50%{background-position:86% 100%}
+    100%{background-position:15% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:15% 0%}
+    50%{background-position:86% 100%}
+    100%{background-position:15% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:15% 0%}
+    50%{background-position:86% 100%}
+    100%{background-position:15% 0%}
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+  
+  #reader {
+    width: 70%; /* Increased the width for better visibility */
+    margin: 20px; /* Added margin for better spacing */
+  }
+  
+  #result {
+    width: 70%;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #fff; /* Set a white background color for the result */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    margin-bottom: 20px; /* Added margin for better spacing */
+    opacity: 0; /* Initially set opacity to 0 for fade-in animation */
+    animation: fadeIn 0.5s ease-out forwards; /* Fade-in animation */
+  }
+  
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+#reader__scan_region{
+  transform: scaleX(-1);
+}
+#html5-qrcode-button-camera-stop{
+  transform: scaleX(1);
+}
+#closeButton {
+  margin-top: 20px;
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  display: none; /* initially hide the close button */
+}
+
+#closeButton:hover {
+  color: darkblue; /* Change color on hover for better interactivity */
+}
+</style>
+<main>
+  <div id="reader"></div>
+  <div id="result"></div>
+  <div id="closeButton" onclick="closeWindow()">Close</div>
+</main>
+<script>
+  const scanner = new Html5QrcodeScanner('reader', {
+    qrbox: {
+      width: 250,
+      height: 250,
+    },
+    fps: 20,
+  });
+
+  let openedWindow;
+
+  scanner.render(success, error);
+
+  function success(result) {
+    
+    if (openedWindow && !openedWindow.closed) {
+      openedWindow.close();
+    }
+    
+    openedWindow = window.open(result, '_blank');
+    showCloseButton();
+
+    // Automatically close the window after 30 seconds
+    setTimeout(function () {
+      closeAndRedirect();
+    }, 5000);
+  }
+
+  function error(err) {
+    console.error(err);
+  }
+
+  // Function to show the close button
+  function showCloseButton() {
+    const closeButton = document.getElementById('closeButton');
+    if (closeButton) {
+      closeButton.style.display = 'block';
+    }
+  }
+
+  // Function to close the opened window and redirect to index.html
+  function closeAndRedirect() {
+    if (openedWindow && !openedWindow.closed) {
+      openedWindow.close();
+    }
+    // Redirect to index.html
+    window.location.href = 'index.html';
+  }
+
+  // Function to close the opened window manually
+  function closeWindow() {
+    closeAndRedirect();
+  }
+</script>
+
+
+</body>
+</html> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -102,7 +258,6 @@
   <div id="result"></div>
   <div id="closeButton" onclick="closeWindow()" ontouchend="closeWindow()">Close</div>
 </main>
-
 <script>
   const scanner = new Html5QrcodeScanner('reader', {
     qrbox: {
@@ -127,12 +282,24 @@
   
       // Open a new window with some options
       openedWindow = window.open(result, '_blank', 'width=600,height=400,scrollbars=yes');
-      closeAndRedirect();
+      showCloseButton();
+  
+      setTimeout(function () {
+        closeAndRedirect();
+      }, 5000);
     }
   }
   
   function error(err) {
     console.error(err);
+  }
+  
+  function showCloseButton() {
+    const closeButton = document.getElementById('closeButton');
+    if (closeButton) {
+      closeButton.style.display = 'block';
+      closeButton.addEventListener('click', closeWindow);
+    }
   }
   
   function closeAndRedirect() {
@@ -142,10 +309,14 @@
     isWindowOpen = false;
   
     // Replace this URL with your desired home page URL
-    window.location.href = 'https://master--tangerine-zuccutto-0b74f7.netlify.app';
+    
   }
+  
+  function closeWindow() {
+    closeAndRedirect();
+  }
+  
 </script>
-
 </body>
 </html>
 
